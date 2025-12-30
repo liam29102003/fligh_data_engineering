@@ -24,5 +24,4 @@ This project demonstrates an **end-to-end data engineering pipeline** for flight
 
 ---
 
-## 📁 Project Structure
 
