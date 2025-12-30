@@ -1,0 +1,49 @@
+[2025-12-30T16:03:52.411+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-12-30T16:03:52.439+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: flights_ops_medallion_pipeline.silver_transform scheduled__2025-12-30T15:30:00+00:00 [queued]>
+[2025-12-30T16:03:52.447+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: flights_ops_medallion_pipeline.silver_transform scheduled__2025-12-30T15:30:00+00:00 [queued]>
+[2025-12-30T16:03:52.448+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2025-12-30T16:03:52.460+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): silver_transform> on 2025-12-30 15:30:00+00:00
+[2025-12-30T16:03:52.469+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'flights_ops_medallion_pipeline', 'silver_transform', 'scheduled__2025-12-30T15:30:00+00:00', '--job-id', '8', '--raw', '--subdir', 'DAGS_FOLDER/flight_pipeline.py', '--cfg-path', '/tmp/tmp6buz49fc']
+[2025-12-30T16:03:52.472+0000] {standard_task_runner.py:91} INFO - Job 8: Subtask silver_transform
+[2025-12-30T16:03:52.472+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:62 DeprecationWarning: This process (pid=116) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2025-12-30T16:03:52.473+0000] {standard_task_runner.py:64} INFO - Started process 125 to run task
+[2025-12-30T16:03:52.540+0000] {task_command.py:426} INFO - Running <TaskInstance: flights_ops_medallion_pipeline.silver_transform scheduled__2025-12-30T15:30:00+00:00 [running]> on host 48705e014f15
+[2025-12-30T16:03:52.630+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='flights_ops_medallion_pipeline' AIRFLOW_CTX_TASK_ID='silver_transform' AIRFLOW_CTX_EXECUTION_DATE='2025-12-30T15:30:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-12-30T15:30:00+00:00'
+[2025-12-30T16:03:52.631+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-12-30T16:03:52.719+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-12-30T16:03:52.720+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/scripts/silver_transform.py", line 21, in run_silver_transformation
+    df_raw.columns = [
+    ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/core/generic.py", line 6218, in __setattr__
+    return object.__setattr__(self, name, value)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "properties.pyx", line 69, in pandas._libs.properties.AxisProperty.__set__
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/core/generic.py", line 767, in _set_axis
+    self._mgr.set_axis(axis, labels)
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/core/internals/managers.py", line 227, in set_axis
+    self._validate_set_axis(axis, new_labels)
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/core/internals/base.py", line 85, in _validate_set_axis
+    raise ValueError(
+ValueError: Length mismatch: Expected axis has 17 elements, new values have 18 elements
+[2025-12-30T16:03:52.739+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=flights_ops_medallion_pipeline, task_id=silver_transform, run_id=scheduled__2025-12-30T15:30:00+00:00, execution_date=20251230T153000, start_date=20251230T160352, end_date=20251230T160352
+[2025-12-30T16:03:52.752+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 8 for task silver_transform (Length mismatch: Expected axis has 17 elements, new values have 18 elements; 125)
+[2025-12-30T16:03:52.768+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2025-12-30T16:03:52.786+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-12-30T16:03:52.789+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

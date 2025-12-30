@@ -14,21 +14,23 @@ services:
 
   airflow-init:
     image: apache/airflow:2.9.3
-    container_name: airflow-init
     depends_on:
       - postgres
     environment:
-      AIRFLOW__CORE__LOAD_EXAMPLES: "False"
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
-    entrypoint: /bin/bash
     command: >
-      -c "
-      echo 'Waiting for PostgreSQL...' &&
-      sleep 10 &&
+      bash -c "
       airflow db init &&
-      airflow db migrate &&
-      airflow users create --username ${AIRFLOW_ADMIN_USER} --firstname ${AIRFLOW_ADMIN_FIRSTNAME} --lastname ${AIRFLOW_ADMIN_LASTNAME} --role Admin --email ${AIRFLOW_ADMIN_EMAIL} --password ${AIRFLOW_ADMIN_PASSWORD} &&
-      echo '✅ Airflow DB initialized successfully.'"
+      airflow users create
+        --username ${AIRFLOW_ADMIN_USER}
+        --firstname ${AIRFLOW_ADMIN_FIRSTNAME}
+        --lastname ${AIRFLOW_ADMIN_LASTNAME}
+        --role Admin
+        --email ${AIRFLOW_ADMIN_EMAIL}
+        --password ${AIRFLOW_ADMIN_PASSWORD}
+      "
+
+
 
   airflow-webserver:
     image: apache/airflow:2.9.3
@@ -48,7 +50,7 @@ services:
       - ./plugins:/opt/airflow/plugins
       - ./data:/opt/airflow/data
     ports:
-      - "8080:8080"
+      - "8081:8080"
     command: webserver
 
   airflow-scheduler:
@@ -70,4 +72,4 @@ services:
     command: scheduler
 
 volumes:
-  postgres_data:
+  postgres_data: 
