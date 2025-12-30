@@ -12,8 +12,6 @@ This project demonstrates an **end-to-end data engineering pipeline** for flight
 - Orchestrates workflows using Apache Airflow DAGs
 - Runs automatically on a scheduled basis
 
-This project is suitable for **learning data engineering concepts**, Airflow orchestration, and real-world ETL workflows.
-
 ---
 
 ## 🛠️ Tech Stack
